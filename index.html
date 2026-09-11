@@ -21,7 +21,10 @@
   <body>
     <main class="site">
       <section class="hero" aria-label="Intro">
-        <img src="assets/logo.webp" alt="Mablr logo" class="logo" />
+        <button type="button" class="logo-sculpture" aria-label="Toggle fluffy coat" aria-pressed="true" disabled>
+          <img src="assets/logo-fluffy.png" alt="" class="logo" />
+          <canvas aria-hidden="true"></canvas>
+        </button>
         <h1>Mablr</h1>
         <h2>Rust x Ethereum Engineer</h2>
         <nav class="social" aria-label="Social links">
@@ -43,5 +46,29 @@
         </nav>
       </section>
     </main>
-    </body>
+    <aside class="logo-settings" aria-label="Logo settings">
+      <section id="logo-toolbox" class="logo-toolbox" aria-labelledby="logo-toolbox-title" hidden>
+        <h3 id="logo-toolbox-title">Logo settings</h3>
+        <label class="toolbox-toggle" for="fur-enabled">
+          <span>Fur</span>
+          <input id="fur-enabled" type="checkbox" checked disabled data-logo-control />
+        </label>
+        <label class="toolbox-slider" for="fur-length">
+          <span>Hair length <output id="fur-length-value" for="fur-length">5</output></span>
+          <input id="fur-length" type="range" min="1" max="10" step="1" value="5" disabled data-logo-control />
+        </label>
+        <label class="toolbox-slider" for="fur-thickness">
+          <span>Hair thickness <output id="fur-thickness-value" for="fur-thickness">5</output></span>
+          <input id="fur-thickness" type="range" min="1" max="10" step="1" value="5" disabled data-logo-control />
+        </label>
+      </section>
+      <button id="settings-toggle" class="btn" type="button" aria-label="Logo settings" aria-controls="logo-toolbox" aria-expanded="false">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m9 3-.6 2.2-1.8 1.1-2.2-.6-2 3.5L4 10.8v2.4l-1.6 1.6 2 3.5 2.2-.6 1.8 1.1L9 21h4l.6-2.2 1.8-1.1 2.2.6 2-3.5-1.6-1.6v-2.4l1.6-1.6-2-3.5-2.2.6-1.8-1.1L13 3Z" />
+          <circle cx="11" cy="12" r="3" />
+        </svg>
+      </button>
+    </aside>
+    <script src="assets/logo-material.js" defer></script>
+  </body>
 </html>
