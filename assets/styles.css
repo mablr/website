@@ -59,10 +59,21 @@ body {
 }
 
 .logo-scene {
+  opacity: 0;
   position: fixed;
   inset: 0;
   z-index: 2;
   pointer-events: none;
+}
+
+.logo-scene.is-ready {
+  opacity: 1;
+  animation: logo-appear .55s ease-out;
+}
+
+@keyframes logo-appear {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 .logo-handle {
@@ -167,6 +178,7 @@ h2 {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .logo-scene.is-ready { animation: none; }
   .btn,
   .logo-help {
     transition: none;

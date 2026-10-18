@@ -16,13 +16,14 @@
 
     <link rel="icon" type="image/webp" href="assets/favicon.webp" />
     <link rel="preload" href="assets/ubuntu_mono.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href="assets/styles.css?v=b77cd77fab375aac" />
+    <noscript><style>.logo[hidden] { display: block !important; }</style></noscript>
+    <link rel="stylesheet" href="assets/styles.css?v=14d09e22e3fcbcdc" />
   </head>
   <body>
     <main class="site">
       <section class="hero" aria-label="Intro">
         <div class="logo-slot">
-          <img src="assets/logo.webp" alt="Mablr logo" class="logo" width="656" height="686" draggable="false" />
+          <img src="assets/logo.webp" alt="Mablr logo" class="logo" hidden width="656" height="686" draggable="false" />
         </div>
         <h1>Mablr</h1>
         <h2>Rust x Ethereum Engineer</h2>
@@ -47,6 +48,6 @@
     </main>
     <p id="logo-help" class="logo-help" hidden>Drag to play</p>
     <button class="btn logo-reset" type="button" hidden>Reset logo</button>
-    <script type="module" src="assets/logo-3d.js?v=4bc6244bf5e1402a"></script>
+    <script type="module" onerror="document.querySelector('.logo').hidden = false" src="assets/logo-3d.js?v=bf27dd4d58bf4c33"></script>
   </body>
 </html>
