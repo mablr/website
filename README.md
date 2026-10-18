@@ -31,12 +31,12 @@ the silhouette reference and loading fallback, not a lighting texture.
 - `src/logo-material.js`: standard material and fixed studio lighting.
 - `src/logo-3d.js`: rendering, placement, pointer and keyboard input.
 
-After editing JavaScript:
+After editing JavaScript, CSS, or generated assets:
 
 ```sh
 npm ci
-npm test
 npm run build
+npm test
 ```
 
 To regenerate the shape after changing the original image or surface profile:
@@ -45,9 +45,12 @@ To regenerate the shape after changing the original image or surface profile:
 # Python with Pillow and NumPy is needed only for source-image extraction.
 python3 scripts/extract-logo-field.py
 npm run build:mesh
-npm test
 npm run build
+npm test
 ```
+
+The build fingerprints CSS, JavaScript and mesh URLs to prevent stale cached assets
+from being mixed with a new page. Commit the updated `index.html` with each build.
 
 The extractor produces `scripts/logo-field.json`.
 The mesh generator produces the silhouette and `assets/logo-mesh.bin`. Commit

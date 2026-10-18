@@ -13,7 +13,7 @@ try {
   // The original image remains available when WebGL is unsupported.
 }
 if (renderer) {
-  fetch('assets/logo-mesh.bin').then(response => {
+  fetch(LOGO_MESH_URL).then(response => {
     if (!response.ok) throw new Error('Logo mesh could not be loaded');
     return response.arrayBuffer();
   }).then(buffer => initialize(renderer, buffer)).catch(error => {
