@@ -21,7 +21,9 @@
   <body>
     <main class="site">
       <section class="hero" aria-label="Intro">
-        <img src="assets/logo.webp" alt="Mablr logo" class="logo" />
+        <div class="logo-slot">
+          <img src="assets/logo.webp" alt="Mablr logo" class="logo" width="656" height="686" draggable="false" />
+        </div>
         <h1>Mablr</h1>
         <h2>Rust x Ethereum Engineer</h2>
         <nav class="social" aria-label="Social links">
@@ -43,5 +45,8 @@
         </nav>
       </section>
     </main>
-    </body>
+    <p id="logo-help" class="logo-help" hidden>Drag to play</p>
+    <button class="btn logo-reset" type="button" hidden>Reset logo</button>
+    <script type="module" src="assets/logo-3d.js"></script>
+  </body>
 </html>
