@@ -10,14 +10,16 @@ let renderer;
 try {
   renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
 } catch {
-  // The original image remains available when WebGL is unsupported.
+  fallback.hidden = false;
 }
 if (renderer) {
   fetch(LOGO_MESH_URL).then(response => {
     if (!response.ok) throw new Error('Logo mesh could not be loaded');
     return response.arrayBuffer();
   }).then(buffer => initialize(renderer, buffer)).catch(error => {
+    renderer.domElement.remove();
     renderer.dispose();
+    fallback.hidden = false;
     console.warn('Using the static logo:', error);
   });
 }
@@ -263,15 +265,18 @@ function initialize(renderer, buffer) {
     cancelAnimationFrame(frame);
     frame = 0;
     canvas.hidden = handle.hidden = resetButton.hidden = help.hidden = true;
-    fallback.style.visibility = '';
+    canvas.classList.remove('is-ready');
+    fallback.hidden = false;
   });
   canvas.addEventListener('webglcontextrestored', () => {
     canvas.hidden = handle.hidden = help.hidden = false;
-    fallback.style.visibility = 'hidden';
+    fallback.hidden = true;
     reset();
+    canvas.classList.add('is-ready');
   });
   resize();
-  fallback.style.visibility = 'hidden';
+  fallback.hidden = true;
+  canvas.classList.add('is-ready');
   help.hidden = false;
   document.fonts.ready.then(() => { if (!touched) resize(); });
 }

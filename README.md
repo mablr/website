@@ -21,7 +21,9 @@ One opaque, clear-coated yellow `MeshPhysicalMaterial` is lit by two fixed studi
 softboxes and a soft ambient fill. Reflections and shading come from the curved
 surface normals. There are no photographed highlights, custom fragment shaders,
 pose-dependent material changes, or transparency blends. The original image is
-the silhouette reference and loading fallback, not a lighting texture.
+the silhouette reference and failure fallback, not a lighting texture. The logo
+slot stays empty while 3D loads, then the rendered logo fades in. Reduced-motion
+preferences disable the fade.
 
 ### Source and builds
 
