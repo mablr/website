@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { decodeMesh } from './logo-mesh-codec.js';
 import { createGeometry, shape } from './logo-shape.js';
 import { convexHull } from './logo-math.js';
 import { createPhysics, STEP } from './logo-physics.js';
@@ -16,7 +17,7 @@ if (renderer) {
   fetch(LOGO_MESH_URL).then(response => {
     if (!response.ok) throw new Error('Logo mesh could not be loaded');
     return response.arrayBuffer();
-  }).then(buffer => initialize(renderer, buffer)).catch(error => {
+  }).then(decodeMesh).then(buffer => initialize(renderer, buffer)).catch(error => {
     renderer.domElement.remove();
     renderer.dispose();
     fallback.hidden = false;

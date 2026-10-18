@@ -21,7 +21,7 @@ await build({
 // Change each URL whenever its content changes so releases stay in sync.
 const index = new URL('index.html', root);
 let html = readFileSync(index, 'utf8');
-for (const path of ['assets/styles.css', 'assets/logo-3d.js']) {
+for (const path of ['assets/styles.css', 'assets/logo-3d.js', 'assets/logo-mesh.bin']) {
   const pattern = new RegExp(`((?:href|src)=")${path.replaceAll('.', '\\.')}[^" ]*(")`, 'g');
   html = html.replace(pattern, `$1${versioned(path)}$2`);
 }
