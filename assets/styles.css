@@ -44,25 +44,83 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 24px;
-  animation: fadeIn 0.9s ease-out;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(9px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.logo-slot {
+  width: clamp(184px, 35vw, 414px);
+  max-width: 70vw;
+  aspect-ratio: 656 / 686;
 }
-
 
 .logo {
-  width: min(30vw, 360px);
+  display: block;
+  width: 100%;
   height: auto;
 }
+
+.logo-scene {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.logo-handle {
+  position: fixed;
+  z-index: 3;
+  border: 0;
+  outline: none;
+  padding: 0;
+  background: transparent;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.logo-handle.is-dragging { cursor: grabbing; }
+.logo-handle:focus-visible:not(.pointer-focused) { background: rgba(255, 255, 255, 0.16); }
+
+.logo-help {
+  position: fixed;
+  z-index: 4;
+  margin: 0;
+  padding: 7px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  background: rgba(10, 11, 15, 0.55);
+  color: var(--text-1);
+  font-size: 12px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, -3px);
+  transition: opacity .18s ease, transform .18s ease;
+}
+
+@media (hover: hover) {
+  body:has(.logo-handle:hover:not(.is-dragging)) .logo-help {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+body:has(.logo-handle:focus-visible:not(.pointer-focused):not(.is-dragging)) .logo-help {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.logo-reset {
+  position: fixed;
+  right: 24px;
+  bottom: max(20px, env(safe-area-inset-bottom));
+  z-index: 4;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+[hidden] { display: none !important; }
 
 h1 {
   margin: 0;
@@ -74,6 +132,7 @@ h1 {
 h2 {
   margin: 0;
   font-weight: 400;
+  font-size: clamp(16px, 3.6vw, 24px);
   color: var(--text-1);
 }
 
@@ -108,11 +167,8 @@ h2 {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .btn {
+  .btn,
+  .logo-help {
     transition: none;
-  }
-  
-  .hero {
-    animation: none;
   }
 }
