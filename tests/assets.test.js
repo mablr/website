@@ -10,5 +10,6 @@ test('published asset references match their content to prevent mixed cached rel
   const html = read('index.html').toString();
   assert.ok(html.includes(`href="${versioned('assets/styles.css')}"`), 'Rebuild after changing CSS');
   assert.ok(html.includes(`src="${versioned('assets/logo-3d.js')}"`), 'Rebuild after changing JavaScript');
+  assert.ok(html.includes(`href="${versioned('assets/logo-mesh.bin')}"`), 'Mesh preload must match the fetch URL');
   assert.ok(read('assets/logo-3d.js').toString().includes(versioned('assets/logo-mesh.bin')), 'Rebuild after changing the mesh');
 });

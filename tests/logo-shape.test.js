@@ -1,12 +1,13 @@
 import test from 'node:test';
+import { decodeMesh } from '../src/logo-mesh-codec.js';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { createGeometry } from '../src/logo-shape.js';
 import { halfThickness } from '../src/logo-math.js';
 
-test('rounded front, back and shoulders join into a closed surface without cracks', () => {
+test('rounded front, back and shoulders join into a closed surface without cracks', async () => {
   const data = readFileSync(new URL('../assets/logo-mesh.bin', import.meta.url));
-  const geometry = createGeometry(data.buffer.slice(data.byteOffset, data.byteOffset + data.byteLength));
+  const geometry = createGeometry(await decodeMesh(data));
   const index = geometry.index.array;
   const positions = geometry.getAttribute('position');
   const edges = new Map();
@@ -28,9 +29,9 @@ test('rounded front, back and shoulders join into a closed surface without crack
   geometry.dispose();
 });
 
-test('the surface has continuous unit normals for physical lighting', () => {
+test('the surface has continuous unit normals for physical lighting', async () => {
   const data = readFileSync(new URL('../assets/logo-mesh.bin', import.meta.url));
-  const geometry = createGeometry(data.buffer.slice(data.byteOffset, data.byteOffset + data.byteLength));
+  const geometry = createGeometry(await decodeMesh(data));
   const positions = geometry.getAttribute('position');
   const normals = geometry.getAttribute('normal');
   for (let i = 0; i < positions.count; i++) {

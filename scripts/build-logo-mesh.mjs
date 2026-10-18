@@ -1,3 +1,5 @@
+import { gzipSync } from 'node:zlib';
+import { packMesh } from '../src/logo-mesh-codec.js';
 import { readFileSync, writeFileSync } from 'node:fs';
 import * as THREE from 'three';
 import { MarchingCubes } from 'three/addons/objects/MarchingCubes.js';
@@ -84,8 +86,11 @@ const header = new Uint32Array([0x4c4f474f, count, mesh.index.count, 2]);
 const data = new Float32Array(count * 6);
 data.set(mesh.getAttribute('position').array, 0);
 data.set(mesh.getAttribute('normal').array, count * 3);
-writeFileSync(new URL('../assets/logo-mesh.bin', import.meta.url), Buffer.concat([
+const original = Buffer.concat([
   Buffer.from(header.buffer), Buffer.from(data.buffer), Buffer.from(new Uint32Array(mesh.index.array).buffer),
-]));
+]);
+const packed = gzipSync(packMesh(original.buffer.slice(original.byteOffset, original.byteOffset + original.byteLength)), { level: 9 });
+writeFileSync(new URL('../assets/logo-mesh.bin', import.meta.url), packed);
+console.log(`Lossless mesh: ${original.length} → ${packed.length} bytes`);
 console.log(`Logo mesh: ${count} vertices, ${mesh.index.count / 3} triangles`);
 mesh.dispose(); raw.dispose(); surface.geometry.dispose(); material.dispose();

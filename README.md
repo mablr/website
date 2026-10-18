@@ -55,7 +55,11 @@ The build fingerprints CSS, JavaScript and mesh URLs to prevent stale cached ass
 from being mixed with a new page. Commit the updated `index.html` with each build.
 
 The extractor produces `scripts/logo-field.json`.
-The mesh generator produces the silhouette and `assets/logo-mesh.bin`. Commit
+The mesh generator produces the silhouette and `assets/logo-mesh.bin`. The mesh
+uses lossless mirrored-vertex packing, byte-plane float deltas, variable-length
+indices, and gzip. Native browser decompression restores the exact original
+float32 positions, normals, and triangle order; no geometry is simplified or
+quantized. A preload starts its download alongside the JavaScript bundle. Commit
 these generated assets, the JavaScript bundle and its license notice alongside
 the source. GitHub Pages serves them directly, without a runtime CDN or build
 service. The original image remains available if JavaScript, WebGL, or asset
